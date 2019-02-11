@@ -1,18 +1,68 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>City Explorer</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/bulma/bulma.css" />
-    <script src="assets/javascript/main.js"></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>City Explorer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/bulma/bulma.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+  <link rel="shortcut icon" href="assets/images/cex.ico" />
+  <script src="assets/javascript/main.js"></script>
 </head>
+
 <body>
-    <img class='logo' src='src.jpg'/>
-    <div class='searchBar'></div>
-    <div class='main'></div>
-    <footer></footer>
+  <section class="section">
+    <div class="columns level-item">
+      <img class="" src='assets/images/logo.png' width="25%" />
+    </div>
+    <div class="columns level-item">
+      <div class="spacer level-item">
+        <div class="field has-addons">
+          <p class="control">
+            <input class="input" type="text" placeholder="City, state to search!">
+          </p>
+          <p class="control">
+            <button class="button">
+              Explore
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="column is-half has-centered">
+      <nav class="level-item">
+        <a class="navbar-link is-blue-bg">
+          Weather
+        </a>
+        <a class="navbar-link is-blue-bg">
+          Food
+        </a>
+        <a class="navbar-link is-blue-bg">
+          Events
+        </a>
+      </nav>
+    </div>
+    <div class="columns level-item">
+      <div class="column is-three-quarters has-background-black level-item">
+          <div class="main">Test
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="footer fix-footer is-marginless is-paddingless">
+    <div class="content has-text-centered is-marginless is-paddingless">
+      <p>Powered by <strong>Yelp</strong> and <strong>OpenWeatherMap</strong></p>
+      <p><strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+        is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+      </p>
+    </div>
+  </div>
 </body>
+
 </html>

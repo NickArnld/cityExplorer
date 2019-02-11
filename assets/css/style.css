@@ -1,0 +1,39 @@
+html {
+    background-image: url(https://iso.500px.com/wp-content/uploads/2014/07/hong-kong-cityscape1.jpg);
+    background-size: auto;
+}
+
+.fix-footer {
+    position: absolute !important;
+    width: 100% !important;
+    bottom: 0 !important;
+    opacity: 0.5;
+}
+
+.is-scrollable {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    position: absolute;
+    max-height: 100%;
+}
+
+.has-centered {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.spacer {
+    margin-top: 1vw;
+}
+
+.main {
+    height: 55vh;
+    color: #ffffff;
+}
+
+.is-blue-bg {
+    text-shadow: 0px 0px 5px #ffffff;
+    background-color: #9cd0df;
+}
