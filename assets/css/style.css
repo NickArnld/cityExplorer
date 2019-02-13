@@ -1,21 +1,5 @@
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
 html {
-    background-image: url(https://iso.500px.com/wp-content/uploads/2014/07/hong-kong-cityscape1.jpg);
+    background-image: url(https://sig.grumpybumpers.com/host/cityscapes.gif);
     background-size: auto;
 }
 .is-scrollable {
@@ -25,6 +9,7 @@ html {
     width: auto;
     position: absolute;
     max-height: 100%;
+    height: 55vh;
 }
 
 .has-centered {
@@ -46,9 +31,11 @@ html {
     background-color: #9cd0df;
 }
 
-.fix-footer {
-    width: 100% !important;
+.style-footer {
+    width: 100%;
     opacity: 0.5;
+    height: 5vh;
+    padding-top: 0;
 }
 .wrapper {
     min-height: 100%;
@@ -56,9 +43,6 @@ html {
   }
 .push {
     height: 25px;
-}
-.hauto{
-    height:auto;
 }
 .cards{
     margin:30px;
@@ -79,4 +63,8 @@ html {
 }
 .hide{
     display: none;
+}
+
+.clearfix {
+    clear: both;
 }

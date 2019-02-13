@@ -129,7 +129,7 @@ function callWeatherAPI(zip){
                 <h3 id="weather">${weatherHeader}</h3>
             </div>
             <div class="card-body">
-                <table id="currentweather">
+                <table class="table is-bordered is-striped" id="currentweather">
                     <tr>
                         <th>Humidity</th>
                         <th>Min Temp</th>
@@ -181,7 +181,7 @@ function callforcastAPI(zip) {
                     <h3 id="forecast">${forecastHeader}</h3>
                 </div>
                 <div class="card-body">
-                    <table id="fivedayforecast">
+                    <table  class="table is-bordered is-striped" id="fivedayforecast">
                         <tr>
                             <th>Day/Time</th>
                             <th>Humidity</th>
@@ -225,7 +225,6 @@ function foodSearchBar(cityObj){
         headers: {"Authorization": "Bearer vDe83QZUJVEgLPbqTMjeIQGWDB7NhgrxRsWNyC4GGUYEzUmwxFGyecJ61y-U0SAW6QTEpWhOBqZN9yBMpXnueUDldvGqnskcz3ydHuVB9V3wglA_ro_VMhAa-bNdXHYx"},
             method:"GET"
         }).then( function(response){
-            $(".main").removeClass("hauto")
             $("#content").empty()
             console.log(response)
             var cmount=0;
@@ -261,7 +260,6 @@ function foodSearchBar(cityObj){
                 </div>
                 </div>
                 </div>`)
-                $(".main").addClass("hauto")
                 content.addClass("cards")
                 $("#content").append(content)
                 cmount++
@@ -320,7 +318,6 @@ function foodSearchBar(cityObj){
                 </div>
                 </div>
             </div>`)
-                $(".main").addClass("hauto")
                 content.addClass("cards")
                 $("#content").append(content)
                 cmount++
@@ -380,7 +377,6 @@ function foodSearchBar(cityObj){
                 </div>
                 </div>
             </div>`)
-                $(".main").addClass("hauto")
                 content.addClass("cards")
                 $("#content").append(content)
                 cmount++
@@ -397,7 +393,6 @@ function foodSearchBar(cityObj){
 function loadEvent(cityObj){
     $('#content').empty();
     $('#navb').addClass("hide");
-    $('#content').addClass("hauto");
     console.log("Load Events Tab");
     eventAPICall(cityObj);
 }
