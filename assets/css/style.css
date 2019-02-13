@@ -1,20 +1,19 @@
-<<<<<<< HEAD
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
-  }
-  
-  td, th {
+}
+
+td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
-  }
-  
-  tr:nth-child(even) {
+}
+
+tr:nth-child(even) {
     background-color: #dddddd;
-  }
-=======
+}
+
 html {
     background-image: url(https://iso.500px.com/wp-content/uploads/2014/07/hong-kong-cityscape1.jpg);
     background-size: auto;
@@ -54,4 +53,3 @@ html {
     text-shadow: 0px 0px 5px #ffffff;
     background-color: #9cd0df;
 }
->>>>>>> 291542800626a72f8106ec50ecb7632c9caabdb9
