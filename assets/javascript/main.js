@@ -12,7 +12,6 @@ var stateSelect = $('#stateSelect');
 window.onload = createDropDown;
 
 //add if statements
-
 $('#searchButton').click(()=>{searchHandler(searchBar.val(), stateSelect.val())});
 
 $('#weatherTab').click(()=>{loadWeather(currentCity)});
@@ -401,7 +400,7 @@ function eventAPICall(cityObj){
     
     var where = cityObj.name;
 
-    var queryURL = "http://api.eventful.com/json/events/search?app_key=Pts8nj75srVCqq6J&location="+where+"&date=This+Week&page_size=5&sort_order=popularity";
+    var queryURL = "https://api.eventful.com/json/events/search?app_key=Pts8nj75srVCqq6J&location="+where+"&date=This+Week&page_size=5&sort_order=popularity";
     
     $.ajax({
         url: queryURL,
@@ -413,27 +412,27 @@ function eventAPICall(cityObj){
         
         (event.image === null ? "" : event.image.medium.url)
 
-        console.log();
+        var https = "https:"
 
         var date = moment(event.start_time).format("dddd, MMMM Do YYYY, h:mm a");
 
         const html = `
-            <div class = event box>
-                <div class = eventtitle>
+            <div class = "event box">
+                <div class = "eventtitle">
                     <h2> ${event.title} </h2>
                 </div>
-                <div class = eventimg>
-                    <img src= ${event.image.medium.url}>
+                <div class = "eventimg">
+                    <img src= ${https}${event.image.medium.url}>
                 </div>
-                <div class = eventinfo>
-                    <div class = starttime>
+                <div class = "eventinfo">
+                    <div class = "starttime">
                         <p> ${date} </p>
                     </div>
-                    <div class = eventvenue>
+                    <div class = "eventvenue">
                         <h3> ${event.venue_name} </h3>
                         <p> ${event.venue_address} </p>
                     </div>
-                    <div class = eventlogo>
+                    <div class = "eventlogo">
                         <img src = "http://api.eventful.com/images/powered/eventful_139x44.gif"
                         alt="Local Events, Concerts, Tickets">
                         <p><a href="${event.url}">Event</a> by Eventful</p>
