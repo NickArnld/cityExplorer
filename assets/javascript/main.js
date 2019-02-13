@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+// javascript code goes here
+=======
 const zipKey = "CJjDASN6yTbqhEBYPoGi6tapGBm7wyq08Ilrn7OEiR1Ll0AnbONxYKXriUusT0uC";
 const stateArr = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 var currentCity = {
@@ -74,3 +77,4 @@ jQuery.ajaxPrefilter(function(options) {
        options.url = 'https://ca329482.herokuapp.com/' + options.url;
    }
 });
+>>>>>>> 291542800626a72f8106ec50ecb7632c9caabdb9
