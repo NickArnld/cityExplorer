@@ -94,7 +94,9 @@ function searchError(){
 //Weather Functions
 function loadWeather(cityObj){
     console.log("Load Weather Tab for", cityObj.name);
+    $('#navb').addClass("hide");
     $('#content').empty();
+    $('.cards').empty();
     callWeatherAPI(cityObj.zipCode);
     callforcastAPI(cityObj.zipCode);
 }
@@ -198,8 +200,195 @@ function callforcastAPI(zip) {
 
 //Food Functions
 function loadFood(cityObj){
+    $('#navb').removeClass("hide");
+    $('#content').empty();
     console.log("Load Food Tab");
-    $('.main').html(`Food Here for ${cityObj.name}, ${cityObj.state}`);
+    foodSearchBar(cityObj);
+}
+
+function foodSearchBar(cityObj){
+    var sfood="resturants";
+    var ratings=3;
+    var cost="$$$$";
+
+    $(".price").on("click", function(){
+        cost=$(this).attr("data-content");
+        var latitude=cityObj.coordinates[0];
+        var longitude=cityObj.coordinates[1];
+        var locate =`latitude=${latitude}&longitude=${longitude}`;
+        const queryURL="https://api.yelp.com/v3/businesses/search?term="+ sfood +"&"+locate+"";
+
+        $.ajax({
+            url:queryURL,
+        headers: {"Authorization": "Bearer vDe83QZUJVEgLPbqTMjeIQGWDB7NhgrxRsWNyC4GGUYEzUmwxFGyecJ61y-U0SAW6QTEpWhOBqZN9yBMpXnueUDldvGqnskcz3ydHuVB9V3wglA_ro_VMhAa-bNdXHYx"},
+            method:"GET"
+        }).then( function(response){
+            $(".main").removeClass("hauto")
+            $("#content").empty()
+            console.log(response)
+            var cmount=0;
+            var viewa=5;
+            for(let i=0;i<20;i++){
+                let resp=response.businesses[i]
+                if(resp.rating>ratings&&cmount<viewa&&resp.price<=cost){
+                let name=resp.name;
+                let ratingg=resp.rating;
+                ratingg=ratingg.toString();
+                let rating=`assets/images/regular/${ratingg}.png`;
+                let prices=resp.price;
+                let link= resp.image_url;
+                let urll=resp.url;
+                let address=resp.location.display_address[0]+" "+resp.location.display_address[1];
+                let content=$("<div>").html(`<div class='card'>
+                <div class="card-image">
+                <figure class="image is-4by3">
+                <img src='${link}' >
+                </figure>
+                </div>
+                <div class="card-content">
+                    <div class="media-content">
+                    <p class="title is-4">${name} &nbsp <h4>${prices}</h4></p>
+                    <img src="${rating}" class="subtitle is-6">
+                    </div>
+                </div>
+            
+                <div class="content">
+                    <h4>${address}</h4>
+                    <br>
+                <a href="${urll}">Visit the yelp page!</a> <img src="assets/images/yelp/Yelp_trademark_RGB.png" style="float:right; width:50px;">
+                </div>
+                </div>
+                </div>`)
+                $(".main").addClass("hauto")
+                content.addClass("cards")
+                $("#content").append(content)
+                cmount++
+                } 
+                else{
+                    console.log("wasnt good enough or too much")
+                }
+            }
+        })
+    })
+
+    $(".cont").on("click", function(){
+        sfood=$(this).attr("data-content")
+        var latitude=cityObj.coordinates[0];
+        var longitude=cityObj.coordinates[1];
+        var locate =`latitude=${latitude}&longitude=${longitude}`;
+        const queryURL="https://api.yelp.com/v3/businesses/search?term="+ sfood +"&"+locate+"";
+
+        $.ajax({
+            url:queryURL,
+        headers: {"Authorization": "Bearer vDe83QZUJVEgLPbqTMjeIQGWDB7NhgrxRsWNyC4GGUYEzUmwxFGyecJ61y-U0SAW6QTEpWhOBqZN9yBMpXnueUDldvGqnskcz3ydHuVB9V3wglA_ro_VMhAa-bNdXHYx"},
+            method:"GET"
+        }).then( function(response){
+            $(".cards").empty()
+            console.log(response)
+            var cmount=0;
+            var viewa=5;
+            for(let i=0;i<20;i++){
+                let resp=response.businesses[i]
+                if(resp.rating>ratings&&cmount<viewa&&resp.price<=cost){
+                let name=resp.name;
+                let ratingg=resp.rating;
+                ratingg=ratingg.toString();
+                let rating=`assets/images/yelp/${ratingg}.png`;
+                let prices=resp.price;
+                let link= resp.image_url;
+                let urll=resp.url;
+                let address=resp.location.display_address[0]+" "+resp.location.display_address[1];
+                let content=$("<div>").html(`<div class='card'>
+                <div class="card-image">
+                <figure class="image is-4by3">
+                <img src='${link}' >
+                </figure>
+                </div>
+                <div class="card-content">
+                    <div class="media-content">
+                    <p class="title is-4">${name} &nbsp <h4>${prices}</h4></p>
+                    <img src="${rating}" class="subtitle is-6">
+                    </div>
+                </div>
+            
+                <div class="content">
+                    <h4>${address}</h4>
+                    <br>
+                <a href="${urll}">Visit the yelp page!</a> <img src="assets/images/yelp/Yelp_trademark_RGB.png" style="float:right; width:50px;">
+                </div>
+                </div>
+            </div>`)
+                $(".main").addClass("hauto")
+                content.addClass("cards")
+                $("#content").append(content)
+                cmount++
+                } 
+                else{
+                    console.log("wasnt good enough or too much")
+                }
+            }
+        })
+
+    })
+
+    $("#fsb").on("click",function(){
+        sfood=$("#searchf").val().trim();
+        var latitude=cityObj.coordinates[0];
+        var longitude=city.coordinates[1];
+        var locate =`latitude=${latitude}&longitude=${longitude}`;
+        const queryURL="https://api.yelp.com/v3/businesses/search?term="+ sfood +"&"+locate+"";
+
+        $.ajax({
+            url:queryURL,
+        headers: {"Authorization": "Bearer vDe83QZUJVEgLPbqTMjeIQGWDB7NhgrxRsWNyC4GGUYEzUmwxFGyecJ61y-U0SAW6QTEpWhOBqZN9yBMpXnueUDldvGqnskcz3ydHuVB9V3wglA_ro_VMhAa-bNdXHYx"},
+            method:"GET"
+        }).then( function(response){
+            $(".cards").empty()
+            console.log(response)
+            var cmount=0;
+            var viewa=5;
+            for(let i=0;i<20;i++){
+                let resp=response.businesses[i]
+                if(resp.rating>ratings&&cmount<viewa&&resp.price<=cost){
+                let name=resp.name;
+                let ratingg=resp.rating;
+                ratingg=ratingg.toString();
+                let rating=`assets/images/regular/${ratingg}.png`;
+                let prices=resp.price;
+                let link= resp.image_url;
+                let urll=resp.url;
+                let address=resp.location.display_address[0]+" "+resp.location.display_address[1];
+                let content=$("<div>").html(`<div class='card'>
+                <div class="card-image">
+                <figure class="image is-4by3">
+                <img src='${link}' >
+                </figure>
+                </div>
+                <div class="card-content">
+                    <div class="media-content">
+                    <p class="title is-4">${name} &nbsp <h4>${prices}</h4></p>
+                    <img src="${rating}" class="subtitle is-6">
+                    </div>
+                </div>
+            
+                <div class="content">
+                    <h4>${address}</h4>
+                    <br>
+                <a href="${urll}">Visit the yelp page!</a> <img src="assets/images/yelp/Yelp_trademark_RGB.png" style="float:right; width:50px;">
+                </div>
+                </div>
+            </div>`)
+                $(".main").addClass("hauto")
+                content.addClass("cards")
+                $("#content").append(content)
+                cmount++
+                } 
+                else{
+                    console.log("wasnt good enough or too much")
+                }
+            }
+        })
+    })
 }
 
 //Event Functions
