@@ -433,9 +433,9 @@ function eventAPICall(cityObj){
                         <p> ${event.venue_address} </p>
                     </div>
                     <div class = "eventlogo">
-                        <img src = "http://api.eventful.com/images/powered/eventful_139x44.gif"
-                        alt="Local Events, Concerts, Tickets">
-                        <p><a href="${event.url}">Event</a> by Eventful</p>
+                        <a target = "_blank" href = "${event.url}">
+                            <img src = "http://api.eventful.com/images/powered/eventful_139x44.gif"alt="Local Events, Concerts, Tickets">
+                        </a> 
                     </div>
                 </div>
             </div>
