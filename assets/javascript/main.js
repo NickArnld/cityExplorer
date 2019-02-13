@@ -1,15 +1,17 @@
 const zipKey = "CJjDASN6yTbqhEBYPoGi6tapGBm7wyq08Ilrn7OEiR1Ll0AnbONxYKXriUusT0uC";
 const stateArr = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 var currentCity = {
-    name: "",
+    name: "Minneapolis",
     state: "",
-    zipCode: "55987",
+    zipCode: "55401",
     coordinates: [], 
 };
 var searchBar = $('#searchBar');
 var stateSelect = $('#stateSelect');
 
 window.onload = createDropDown;
+
+//add if statements
 
 $('#searchButton').click(()=>{searchHandler(searchBar.val(), stateSelect.val())});
 
@@ -393,8 +395,60 @@ function foodSearchBar(cityObj){
 
 //Event Functions
 function loadEvent(cityObj){
+    $('#content').empty();
+    $('#navb').addClass("hide");
+    $('#content').addClass("hauto");
     console.log("Load Events Tab");
-    $('.main').html(`Events Here for ${cityObj.name}, ${cityObj.state}`);
+    eventAPICall(cityObj);
+}
+
+function eventAPICall(cityObj){
+    
+    var where = cityObj.name;
+
+    var queryURL = "http://api.eventful.com/json/events/search?app_key=Pts8nj75srVCqq6J&location="+where+"&date=This+Week&page_size=5&sort_order=popularity";
+    
+    $.ajax({
+        url: queryURL,
+        dataType: "json",
+        method: "GET"
+    }).then(function(response) {
+    
+        response.events.event.forEach((event) => {
+        
+        (event.image === null ? "" : event.image.medium.url)
+
+        console.log();
+
+        var date = moment(event.start_time).format("dddd, MMMM Do YYYY, h:mm a");
+
+        const html = `
+            <div class = event box>
+                <div class = eventtitle>
+                    <h2> ${event.title} </h2>
+                </div>
+                <div class = eventimg>
+                    <img src= ${event.image.medium.url}>
+                </div>
+                <div class = eventinfo>
+                    <div class = starttime>
+                        <p> ${date} </p>
+                    </div>
+                    <div class = eventvenue>
+                        <h3> ${event.venue_name} </h3>
+                        <p> ${event.venue_address} </p>
+                    </div>
+                    <div class = eventlogo>
+                        <img src = "http://api.eventful.com/images/powered/eventful_139x44.gif"
+                        alt="Local Events, Concerts, Tickets">
+                        <p><a href="${event.url}">Event</a> by Eventful</p>
+                    </div>
+                </div>
+            </div>
+        `
+        $("#content").append(html);
+        })
+    });
 }
 
 jQuery.ajaxPrefilter(function(options) {
