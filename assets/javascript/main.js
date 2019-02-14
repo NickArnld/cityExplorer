@@ -12,9 +12,7 @@ var stateSelect = $('#stateSelect');
 window.onload = createDropDown;
 
 //add if statements
-$('#searchButton').click(()=>{
-    if(currentCity.name != ""){searchHandler(searchBar.val(), stateSelect.val())};
-});
+$('#searchButton').click(()=>{searchHandler(searchBar.val(), stateSelect.val())});
 
 $('#weatherTab').click(()=>{
     if(currentCity.name != ""){loadWeather(currentCity)};    
