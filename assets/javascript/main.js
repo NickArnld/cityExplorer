@@ -1,9 +1,9 @@
 const zipKey = "CJjDASN6yTbqhEBYPoGi6tapGBm7wyq08Ilrn7OEiR1Ll0AnbONxYKXriUusT0uC";
 const stateArr = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 var currentCity = {
-    name: "Minneapolis",
+    name: "",
     state: "",
-    zipCode: "55401",
+    zipCode: "",
     coordinates: [], 
 };
 var searchBar = $('#searchBar');
@@ -12,14 +12,19 @@ var stateSelect = $('#stateSelect');
 window.onload = createDropDown;
 
 //add if statements
-
 $('#searchButton').click(()=>{searchHandler(searchBar.val(), stateSelect.val())});
 
-$('#weatherTab').click(()=>{loadWeather(currentCity)});
+$('#weatherTab').click(()=>{
+    if(currentCity.name != ""){loadWeather(currentCity)};    
+});
 
-$('#foodTab').click(()=>{loadFood(currentCity)});
+$('#foodTab').click(()=>{
+    if(currentCity.name != ""){loadFood(currentCity)};
+});
 
-$('#eventsTab').click(()=>{loadEvent(currentCity)});
+$('#eventsTab').click(()=>{
+    if(currentCity.name != ""){loadEvent(currentCity)};
+});
 
 //Main Search Functions
 function createDropDown(){
@@ -206,6 +211,7 @@ function loadFood(cityObj){
     $('#content').empty();
     console.log("Load Food Tab");
     foodSearchBar(cityObj);
+    initFoodLoad(cityObj)
 }
 
 function foodSearchBar(cityObj){
@@ -448,6 +454,64 @@ $("#foodTab").on("click",function(){
 })
 }
 
+function initFoodLoad(cityObj){
+    var latitude=cityObj.coordinates[0];
+    var longitude=cityObj.coordinates[1];
+    var locate =`latitude=${latitude}&longitude=${longitude}`;
+    const queryURL="https://api.yelp.com/v3/businesses/search?term="+ sfood +"&"+locate+"";
+
+    $.ajax({
+        url:queryURL,
+    headers: {"Authorization": "Bearer vDe83QZUJVEgLPbqTMjeIQGWDB7NhgrxRsWNyC4GGUYEzUmwxFGyecJ61y-U0SAW6QTEpWhOBqZN9yBMpXnueUDldvGqnskcz3ydHuVB9V3wglA_ro_VMhAa-bNdXHYx"},
+        method:"GET"
+    }).then( function(response){
+        $("#content").empty()
+        console.log(response)
+        var cmount=0;
+        var viewa=5;
+        for(let i=0;i<20;i++){
+            let resp=response.businesses[i]
+            if(resp.rating>ratings&&cmount<viewa&&resp.price<=cost){
+            let name=resp.name;
+            let ratingg=resp.rating;
+            ratingg=ratingg.toString();
+            let rating=`assets/images/regular/${ratingg}.png`;
+            let prices=resp.price;
+            let link= resp.image_url;
+            let urll=resp.url;
+            let address=resp.location.display_address[0]+" "+resp.location.display_address[1];
+            let content=$("<div>").html(`<div class='card'>
+            <div class="card-image">
+            <figure class="image is-4by3">
+            <img src='${link}' >
+            </figure>
+            </div>
+            <div class="card-content">
+                <div class="media-content">
+                <p class="title is-4">${name} &nbsp <h4>${prices}</h4></p>
+                <img src="${rating}" class="subtitle is-6">
+                </div>
+            </div>
+        
+            <div class="content">
+                <h4>${address}</h4>
+                <br>
+            <a href="${urll}">Visit the yelp page!</a> <img src="assets/images/yelp/Yelp_trademark_RGB.png" style="float:right; width:50px;">
+            </div>
+            </div>
+        </div>`)
+            content.addClass("cards")
+            $("#content").append(content)
+            cmount++
+            } 
+            else{
+                console.log("wasnt good enough or too much")
+            }
+        }
+    })
+
+}
+
 //Event Functions
 function loadEvent(cityObj){
     $('#content').empty();
@@ -460,7 +524,7 @@ function eventAPICall(cityObj){
     
     var where = cityObj.name;
 
-    var queryURL = "http://api.eventful.com/json/events/search?app_key=Pts8nj75srVCqq6J&location="+where+"&date=This+Week&page_size=5&sort_order=popularity";
+    var queryURL = "https://api.eventful.com/json/events/search?app_key=Pts8nj75srVCqq6J&location="+where+"&date=This+Week&page_size=8&sort_order=popularity";
     
     $.ajax({
         url: queryURL,
@@ -472,30 +536,30 @@ function eventAPICall(cityObj){
         
         (event.image === null ? "" : event.image.medium.url)
 
-        console.log();
+        var https = "https:"
 
         var date = moment(event.start_time).format("dddd, MMMM Do YYYY, h:mm a");
 
         const html = `
-            <div class = event box>
-                <div class = eventtitle>
+            <div class = "event box">
+                <div class = "eventtitle">
                     <h2> ${event.title} </h2>
                 </div>
-                <div class = eventimg>
-                    <img src= ${event.image.medium.url}>
+                <div class = "eventimg">
+                    <img src= ${https}${event.image.medium.url}>
                 </div>
-                <div class = eventinfo>
-                    <div class = starttime>
+                <div class = "eventinfo">
+                    <div class = "starttime">
                         <p> ${date} </p>
                     </div>
-                    <div class = eventvenue>
+                    <div class = "eventvenue">
                         <h3> ${event.venue_name} </h3>
                         <p> ${event.venue_address} </p>
                     </div>
-                    <div class = eventlogo>
-                        <img src = "http://api.eventful.com/images/powered/eventful_139x44.gif"
-                        alt="Local Events, Concerts, Tickets">
-                        <p><a href="${event.url}">Event</a> by Eventful</p>
+                    <div class = "eventlogo">
+                        <a target = "_blank" href = "${event.url}">
+                            <img src = "http://api.eventful.com/images/powered/eventful_139x44.gif"alt="Local Events, Concerts, Tickets">
+                        </a> 
                     </div>
                 </div>
             </div>

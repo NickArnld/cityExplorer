@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>City Explorer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Stylesheets and Fav Icon -->
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/bulma/bulma.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
@@ -15,8 +17,10 @@
 <body>
   <section class="section">
     <div class="columns level-item">
-      <img class="" src='assets/images/logo.png' width="25%" />
+      <!-- Our logo -->
+      <img src='assets/images/logo.png' width="30%" />
     </div>
+    <!-- The search bar (which will also do a default weather request) -->
     <div class="columns level-item">
       <div class="spacer level-item">
         <div class="field has-addons">
@@ -32,8 +36,10 @@
         </div>
       </div>
     </div>
+
+    <!-- Secondary search bar: will complete an AJAX request -->
     <div id="errorMsg" style="color: red; text-align: center"></div>
-    <div class="column is-half has-centered">
+    <div class="column is-half has-centered level">
       <nav class="level-item">
         <a class="navbar-link is-blue-bg" id="weatherTab">
           Weather
@@ -46,10 +52,12 @@
         </a>
       </nav>
     </div>
-    <div class="columns level-item">
-      <div class="column is-three-quarters has-background-light level-item">
-        <div class="main"><span class="is-scrollable">
-          <nav id="navb" class="navbar hide" role="navigation" aria-label="main navigation">
+    <!-- This is where all of the AJAX requested API calls end up. -->
+    <div class="columns level">
+      <div class="column is-three-quarters level-item">
+        <div class="main level-item"><div class="is-scrollable">
+          <!-- Internal Yelp searchbar and navbar. -->
+          <nav id="navb"  class="navbar hide" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
           
               <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -76,72 +84,72 @@
                       <a class="navbar-item cont" id="ftruck" data-content="Food Trucks">
                         Food Trucks
                       </a>
-                      <span id="clearfix"></span>
+                      <div class="clearfix"></div>
                     </div>
-                  </div></span>
+                  </div></div>
           
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
+                <div class="navbar-item has-dropdown is-hoverable level-item">
+                    <a class="navbar-link level-item">
                       Drink
                     </a>
             
-                    <div class="navbar-dropdown">
-                      <a class="navbar-item cont" id="coffee" data-content="Coffee">
+                    <div class="navbar-dropdown level-item">
+                      <a class="navbar-item cont level-item" id="coffee" data-content="Coffee">
                         Coffee
                       </a>
-                      <a class="navbar-item cont" id='bars' data-content="Bars">
+                      <a class="navbar-item cont level-item" id='bars' data-content="Bars">
                         Bars
                       </a>
-                      <a class="navbar-item cont" id="smoothie" data-content="Smoothie">
+                      <a class="navbar-item cont level-item" id="smoothie" data-content="Smoothie">
                         Smoothie
                       </a>
-                      <a class="navbar-item cont" id="boba" data-content="Boba Tea">
+                      <a class="navbar-item cont level-item" id="boba" data-content="Boba Tea">
                         Boba Tea
                       </a>
                     </div>
                   </div>
           
-                <div class="navbar-item has-dropdown is-hoverable">
-                  <a class="navbar-link">
+                <div class="navbar-item level-item has-dropdown is-hoverable">
+                  <a class="navbar-link level-item">
                     Desserts
                   </a>
           
-                  <div class="navbar-dropdown">
-                    <a class="navbar-item cont" id="cream" data-content="Ice-cream">
+                  <div class="navbar-dropdown level-item">
+                    <a class="navbar-item cont level-item" id="cream" data-content="Ice-cream">
                       Ice-Cream
                     </a>
-                    <a class="navbar-item cont" id="bakery" data-content="Bakery">
+                    <a class="navbar-item cont level-item" id="bakery" data-content="Bakery">
                       Bakery
                     </a>
                   </div>
                 </div>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
+                <div class="navbar-item has-dropdown is-hoverable level-item">
+                    <a class="navbar-link level-item">
                       Price
                     </a>
             
-                    <div class="navbar-dropdown">
-                      <a class="navbar-item cont price" id="cheap" data-content="$">
+                    <div class="navbar-dropdown level-item">
+                      <a class="navbar-item cont price level-item" id="cheap" data-content="$">
                         $
                       </a>
-                      <a class="navbar-item cont price" id='average' data-content="$$">
+                      <a class="navbar-item cont price level-item" id='average' data-content="$$">
                         $$
                       </a>
-                      <a class="navbar-item cont price" id="pricey" data-content="$$$">
+                      <a class="navbar-item cont price level-item" id="pricey" data-content="$$$">
                         $$$
                       </a>
-                      <a class="navbar-item cont price" id="baller" data-content="$$$$">
+                      <a class="navbar-item cont price level-item" id="baller" data-content="$$$$">
                         $$$$
                       </a>
                     </div>
                   </div>
               </div>
           
-              <div class="navbar-end">
-                <div class="navbar-item">
+              <div class="navbar-end level-item">
+                <div class="navbar-item level-item">
                     <input id="searchf" placeholder="Search">
-                  <div class="buttons">
-                    <a id="fsb" class="button is-light" style="height:35px">
+                  <div class="buttons level-item">
+                    <a id="fsb" class="button is-light level-item" style="height:35px">
                       search
                     </a>
                   </div>
@@ -150,7 +158,7 @@
             </div>
           </nav>
           <div id="content">
-
+            <!-- Where all content actually goes. -->
           </div>  
         </div>
       </div>
@@ -158,10 +166,14 @@
     </div>
     </div>
   </section>
+<<<<<<< HEAD
   
+=======
+  <!-- Footer, with attributions. Hard to read! -->
+>>>>>>> f17b219359cf988bbe8bfc73df54891888b29371
   <div class="footer style-footer">    
     <div class="content has-text-centered is-marginless is-paddingless">
-      <p>Powered by <strong>Yelp</strong> and <strong>OpenWeatherMap</strong></p>
+      <p>Powered by <strong>Yelp</strong>, <strong>Eventful</strong>, <strong>OpenWeatherMap</strong>, and <strong>ZipCodeAPI</strong></p>
       <p><strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
         <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
         is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
@@ -169,7 +181,7 @@
     </div>
   </div>
 
-
+  <!-- More scripts. -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://unpkg.com/moment"></script>
   <script src="assets/javascript/main.js"></script>
