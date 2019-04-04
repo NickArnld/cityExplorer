@@ -209,9 +209,10 @@ function loadFood(cityObj){
 }
 
 function foodSearchBar(cityObj){
-    var sfood="resturants";
+    var sfood="hamburgers";
     var ratings=3;
     var cost="$$$$";
+
 
     $(".price").on("click", function(){
         cost=$(this).attr("data-content");
@@ -275,7 +276,7 @@ function foodSearchBar(cityObj){
         sfood=$(this).attr("data-content")
         var latitude=cityObj.coordinates[0];
         var longitude=cityObj.coordinates[1];
-        var locate =`latitude=${latitude}&longitude=${longitude}`;
+        var locate =`latitude=44.986656&longitude=-93.258133`;
         const queryURL="https://api.yelp.com/v3/businesses/search?term="+ sfood +"&"+locate+"";
 
         $.ajax({
@@ -283,7 +284,7 @@ function foodSearchBar(cityObj){
         headers: {"Authorization": "Bearer vDe83QZUJVEgLPbqTMjeIQGWDB7NhgrxRsWNyC4GGUYEzUmwxFGyecJ61y-U0SAW6QTEpWhOBqZN9yBMpXnueUDldvGqnskcz3ydHuVB9V3wglA_ro_VMhAa-bNdXHYx"},
             method:"GET"
         }).then( function(response){
-            $(".cards").empty()
+            $("#content").empty()
             console.log(response)
             var cmount=0;
             var viewa=5;
@@ -298,26 +299,27 @@ function foodSearchBar(cityObj){
                 let link= resp.image_url;
                 let urll=resp.url;
                 let address=resp.location.display_address[0]+" "+resp.location.display_address[1];
-                let content=$("<div>").html(`<div class='card'>
-                <div class="card-image">
+                let content=$("<div>").html(`<div class='card' style="height:450px">
+                <div class="card-image" style="height:40%">
                 <figure class="image is-4by3">
                 <img src='${link}' >
                 </figure>
                 </div>
-                <div class="card-content">
+                <div class="card-content"style="height:30%;">
                     <div class="media-content">
-                    <p class="title is-4">${name} &nbsp <h4>${prices}</h4></p>
+                    <p class="title is-4" style="">${name} &nbsp <h4>${prices}</h4></p>
                     <img src="${rating}" class="subtitle is-6">
                     </div>
                 </div>
             
-                <div class="content">
+                <div class="content" style="height:30%; padding-top:3%; padding-bottom:5%">
                     <h4>${address}</h4>
-                    <br>
+                    
                 <a href="${urll}">Visit the yelp page!</a> <img src="assets/images/yelp/Yelp_trademark_RGB.png" style="float:right; width:50px;">
+                <br>
                 </div>
                 </div>
-            </div>`)
+                </div>`)
                 content.addClass("cards")
                 $("#content").append(content)
                 cmount++
@@ -330,7 +332,7 @@ function foodSearchBar(cityObj){
 
     })
 
-    $("#fsb").on("click",function(){
+$("#fsb").on("click",function(){
         sfood=$("#searchf").val().trim();
         var latitude=cityObj.coordinates[0];
         var longitude=city.coordinates[1];
@@ -387,6 +389,63 @@ function foodSearchBar(cityObj){
             }
         })
     })
+
+$("#foodTab").on("click",function(){
+    var latitude=cityObj.coordinates[0];
+    var longitude=city.coordinates[1];
+    var locate =`latitude=${latitude}&longitude=${longitude}`;
+    const queryURL="https://api.yelp.com/v3/businesses/search?term="+ sfood +"&"+locate+"";
+
+    $.ajax({
+        url:queryURL,
+    headers: {"Authorization": "Bearer vDe83QZUJVEgLPbqTMjeIQGWDB7NhgrxRsWNyC4GGUYEzUmwxFGyecJ61y-U0SAW6QTEpWhOBqZN9yBMpXnueUDldvGqnskcz3ydHuVB9V3wglA_ro_VMhAa-bNdXHYx"},
+        method:"GET"
+    }).then( function(response){
+        $("#content").empty()
+        console.log(response)
+        var cmount=0;
+        var viewa=5;
+        for(let i=0;i<20;i++){
+            let resp=response.businesses[i]
+            if(resp.rating>ratings&&cmount<viewa&&resp.price<=cost){
+            let name=resp.name;
+            let ratingg=resp.rating;
+            ratingg=ratingg.toString();
+            let rating=`assets/images/regular/${ratingg}.png`;
+            let prices=resp.price;
+            let link= resp.image_url;
+            let urll=resp.url;
+            let address=resp.location.display_address[0]+" "+resp.location.display_address[1];
+            let content=$("<div>").html(`<div class='card'>
+            <div class="card-image">
+            <figure class="image is-4by3">
+            <img src='${link}' >
+            </figure>
+            </div>
+            <div class="card-content">
+                <div class="media-content">
+                <p class="title is-4">${name} &nbsp <h4>${prices}</h4></p>
+                <img src="${rating}" class="subtitle is-6">
+                </div>
+            </div>
+        
+            <div class="content">
+                <h4>${address}</h4>
+                <br>
+            <a href="${urll}">Visit the yelp page!</a> <img src="assets/images/yelp/Yelp_trademark_RGB.png" style="float:right; width:50px;">
+            </div>
+            </div>
+        </div>`)
+            content.addClass("cards")
+            $("#content").append(content)
+            cmount++
+            } 
+            else{
+                console.log("wasnt good enough or too much")
+            }
+        }
+    })
+})
 }
 
 //Event Functions
